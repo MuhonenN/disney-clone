@@ -1,20 +1,44 @@
+import { useEffect, useState } from 'react'
+import { useParams } from 'react-router-dom'
 import styled from 'styled-components'
+import db from '../firebase'
 import PlayArrowIcon from '@material-ui/icons/PlayArrow';
+import GroupIcon from '@material-ui/icons/Group';
 
 function Detail() {
+    const { id } = useParams()
+    const [detailData, setDetailData] = useState({})
+
+    useEffect(() => {
+        db.collection('movies')
+            .doc(id)
+            .get()
+            .then((doc) => {
+                if (doc.exists) {
+                    setDetailData(doc.data())
+                }
+                else {
+                    console.log('no such document in firebase')
+                }
+            })
+            .catch((error) => {
+                console.log('Error getting document', error)
+            })
+    }, [id])
+
     return (
         <Container>
             <Background>
                 <img
-                    alt=""
-                    src="https://prod-ripcut-delivery.disney-plus.net/v1/variant/disney/223DAE104BE1175F374C4AACAC0EB5B8B0DB9C49839AA2E10085533DDFE07A8E/scale?width=1440&aspectRatio=1.78&format=jpeg"
+                    alt={detailData.title}
+                    src={detailData.backgroundImg}
                 />
             </Background>
 
             <ImageTitle>
                 <img
-                    alt=""
-                    src="https://prod-ripcut-delivery.disney-plus.net/v1/variant/disney/47A6FB38D95B3A5EF5583C9EED0B698ED2992CBA4AC7222DD3269DC92DFA03A6/scale?width=1440&aspectRatio=1.78"
+                    alt={detailData.title}
+                    src={detailData.titleImg}
                 />
             </ImageTitle>
 
@@ -32,7 +56,18 @@ function Detail() {
                         <span></span>
                         <span></span>
                     </AddList>
+                    <GroupWatch>
+                        <div>
+                            <GroupIcon />
+                        </div>
+                    </GroupWatch>
                 </Controls>
+                <SubTitle>
+                    {detailData.subTitle}
+                </SubTitle>
+                <Description>
+                    {detailData.description}
+                </Description>
             </ContentMeta>
         </Container>
     )
@@ -168,5 +203,51 @@ const AddList = styled.div`
             transform: translate(-8px) rotate(0deg);
             width: 2px;
         }
+    }
+`
+
+const GroupWatch = styled.div`
+    height: 44px;
+    width: 44px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    background: white;
+
+    div {
+        height: 40px;
+        width: 40px;
+        background: rgb(0, 0, 0);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+
+        .MuiSvgIcon-root {
+            width: 100%;
+            height: 80%;
+        }
+    }
+`
+
+const SubTitle = styled.div`
+    color: rgb(249, 249, 249);
+    font-size: 15px;
+    min-height: 20px;
+
+    @media (max-width: 768px) {
+        font-size: 12px;
+    }
+`
+
+const Description = styled.div`
+    line-height: 1.4;
+    font-size: 20px;
+    padding: 16px 0px;
+    color: rgb(249, 249, 249);
+
+    @media (max-width: 768px) {
+        font-size: 14px;
     }
 `

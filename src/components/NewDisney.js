@@ -28,7 +28,6 @@ function NewDisney() {
 export default NewDisney
 
 
-
 const Container = styled.div`
     padding: 0 0 26px;
 `

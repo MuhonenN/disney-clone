@@ -65,10 +65,11 @@ const Wrap = styled.div`
     border: 3px solid rgba(249, 249, 249, 0.1);
 
     img {
+        padding: 20px;
         inset: 0px;
         display: block;
         height: 100%;
-        object-fit: cover;
+        object-fit: contain;
         opacity: 1;
         position: absolute;
         transition: opacity 500ms ease-in-out 0s;

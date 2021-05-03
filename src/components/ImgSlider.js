@@ -10,7 +10,7 @@ function ImgSlider() {
         speed: 500,
         slidesToShow: 1,
         slidesToScroll: 1,
-        autoplay: true
+        autoplay: false
     }
 
     return (
@@ -20,21 +20,21 @@ function ImgSlider() {
                     <img src="/images/slider-dalma.jpg" alt="" />
                 </a>
             </Wrap>
-            <Wrap>
+            {/* <Wrap>
                 <a>
                     <img src="/images/slider-lionk.jpg" alt="" />
                 </a>
-            </Wrap>
-            <Wrap>
+            </Wrap> */}
+            {/* <Wrap>
                 <a>
                     <img src="/images/slider-mulan.png" alt="" />
                 </a>
-            </Wrap>
-            <Wrap>
+            </Wrap> */}
+            {/* <Wrap>
                 <a>
                     <img src="/images/slider-wanda.jpeg" alt="" />
                 </a>
-            </Wrap>
+            </Wrap> */}
         </Carousel>
     )
 }
